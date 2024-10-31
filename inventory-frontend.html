@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management System</title>
+    <style>
+        /* Your existing CSS remains the same */
+    </style>
+</head>
+<body>
+    <!-- Your existing HTML structure remains the same -->
+
+    <script>
+        // Updated API functions to work with Django backend
+        const API_BASE_URL = 'http://localhost:8000/api';
+
+        async function fetchInventory() {
+            const response = await fetch(`${API_BASE_URL}/inventory/`);
+            const data = await response.json();
+            return data;
+        }
+
+        async function fetchLowStockItems() {
+            const response = await fetch(`${API_BASE_URL}/inventory/low-stock/`);
+            const data = await response.json();
+            return data;
+        }
+
+        async function addItem(itemData) {
+            const response = await fetch(`${API_BASE_URL}/inventory/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(itemData),
+            });
+            return response.json();
+        }
+
+        async function updateQuantity(id, quantityChange) {
+            const response = await fetch(`${API_BASE_URL}/inventory/${id}/quantity/`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ quantity_change: quantityChange }),
+            });
+            return response.json();
+        }
+
+        // Rest of your JavaScript code remains the same
+    </script>
+</body>
+</html>
